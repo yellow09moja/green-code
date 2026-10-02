@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GREEN CODE | 지구를 위한 작은 코드</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@400;500;600;700;800&display=swap');
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:Pretendard,"Noto Sans KR",Arial,sans-serif;
+  color:#17352b;background:#f5faf6;line-height:1.6;
+}
+header{
+  position:fixed;top:0;left:0;right:0;z-index:10;
+  backdrop-filter:blur(16px);background:rgba(245,250,246,.82);
+  border-bottom:1px solid rgba(39,103,74,.10);
+}
+.nav{
+  max-width:1120px;margin:auto;height:72px;display:flex;
+  align-items:center;justify-content:space-between;padding:0 24px;
+}
+.logo{font-weight:800;font-size:20px;letter-spacing:-.5px;color:#1e754e}
+.logo span{color:#17352b}
+nav a{text-decoration:none;color:#426257;margin-left:24px;font-size:14px;font-weight:600}
+nav a:hover{color:#168653}
+.hero{
+  min-height:720px;padding:150px 24px 90px;position:relative;overflow:hidden;
+  display:flex;align-items:center;
+  background:linear-gradient(135deg,#eef9f0 0%,#f7fcf7 55%,#e5f5e9 100%);
+}
+.hero:before,.hero:after{
+  content:"";position:absolute;border-radius:50%;filter:blur(1px);opacity:.65;
+}
+.hero:before{width:420px;height:420px;background:#ccefd7;right:-100px;top:100px}
+.hero:after{width:260px;height:260px;background:#dff4e5;left:-100px;bottom:-60px}
+.hero-inner{max-width:1120px;width:100%;margin:auto;display:grid;grid-template-columns:1.1fr .9fr;gap:60px;align-items:center;position:relative;z-index:1}
+.badge{display:inline-flex;align-items:center;gap:8px;background:#fff;padding:8px 14px;border-radius:30px;color:#1d7950;font-size:13px;font-weight:700;box-shadow:0 8px 25px rgba(35,103,66,.08)}
+h1{font-size:clamp(44px,6vw,76px);line-height:1.03;letter-spacing:-4px;margin:22px 0 20px}
+h1 em{font-style:normal;color:#168653}
+.hero p{font-size:18px;color:#557066;max-width:560px}
+.btn{
+  display:inline-block;margin-top:30px;padding:14px 22px;border-radius:13px;
+  background:#1c8b59;color:#fff;text-decoration:none;font-weight:700;
+  box-shadow:0 10px 25px rgba(28,139,89,.22);transition:.2s;
+}
+.btn:hover{transform:translateY(-2px);background:#147749}
+.earth-card{
+  background:rgba(255,255,255,.72);border:1px solid rgba(255,255,255,.9);
+  border-radius:30px;padding:35px;box-shadow:0 25px 70px rgba(40,100,65,.12);
+  text-align:center;
+}
+.earth{font-size:150px;line-height:1;filter:drop-shadow(0 18px 25px rgba(24,130,78,.15));animation:float 4s ease-in-out infinite}
+@keyframes float{50%{transform:translateY(-10px) rotate(2deg)}}
+.mini{margin-top:20px;background:#edf8f0;border-radius:18px;padding:15px;color:#4d6c5f;font-size:14px}
+section{padding:100px 24px}
+.container{max-width:1120px;margin:auto}
+.section-head{margin-bottom:40px}
+.kicker{color:#198653;font-size:13px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase}
+h2{font-size:38px;letter-spacing:-1.8px;margin-top:8px}
+.section-head p{color:#668077;margin-top:10px}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.card{
+  background:#fff;border:1px solid #e5eee7;border-radius:22px;padding:28px;
+  box-shadow:0 10px 35px rgba(34,78,53,.055);transition:.25s;
+}
+.card:hover{transform:translateY(-5px);box-shadow:0 18px 40px rgba(34,78,53,.10)}
+.icon{font-size:34px;margin-bottom:16px}
+.card h3{font-size:19px;margin-bottom:8px}
+.card p{font-size:14px;color:#667d73}
+.action{background:#173f31;color:#fff}
+.action .section-head p{color:#b9d2c6}
+.check-wrap{display:grid;grid-template-columns:1fr .8fr;gap:25px}
+.checklist{background:#fff;border-radius:24px;padding:24px}
+.check{
+  display:flex;align-items:center;gap:14px;padding:15px 10px;
+  border-bottom:1px solid #edf1ee;cursor:pointer;
+}
+.check:last-child{border-bottom:0}
+.check input{width:19px;height:19px;accent-color:#1d8c5a}.check label{color:#17352b}
+.check label{cursor:pointer;flex:1;color:#17352b}
+.score{
+  background:#e8f7ed;border-radius:24px;padding:32px;display:flex;
+  flex-direction:column;justify-content:center;align-items:center;text-align:center;color:#194d39;
+}
+.score-number{font-size:70px;font-weight:800;line-height:1;color:#188653}
+.score small{color:#5e796d;margin-top:8px}
+.progress{height:10px;width:100%;background:#d5eadc;border-radius:20px;margin-top:22px;overflow:hidden}
+.progress div{height:100%;width:0;background:#1c8b59;border-radius:20px;transition:.3s}
+.quiz{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.quiz-card{background:#fff;border-radius:22px;padding:25px;border:1px solid #e5eee7}
+.quiz-card h3{margin-bottom:17px;font-size:18px}
+.option{
+  width:100%;text-align:left;border:1px solid #dfe9e2;background:#f9fcfa;
+  padding:11px 13px;border-radius:11px;margin:5px 0;cursor:pointer;font:inherit;color:#36564a;
+}
+.option:hover{border-color:#69b58e;background:#f0faf4}
+.option.correct{background:#dff5e8;border-color:#56af7f;color:#176b47}
+.option.wrong{background:#fff0ee;border-color:#e6a39a;color:#a24940}
+.result{font-size:14px;font-weight:700;margin-top:10px;min-height:22px}
+.cta{
+  text-align:center;background:linear-gradient(135deg,#dff5e6,#effaf2);
+  border-radius:30px;padding:70px 25px;margin-top:20px;
+}
+.cta h2{font-size:42px}
+footer{padding:35px 24px;text-align:center;color:#769087;font-size:13px}
+@media(max-width:800px){
+  .hero-inner,.check-wrap,.quiz{grid-template-columns:1fr}
+  .cards{grid-template-columns:1fr}
+  nav{display:none}
+  h1{letter-spacing:-2.5px}
+  .hero{min-height:auto}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav">
+    <div class="logo">GREEN <span>CODE</span> 🌱</div>
+    <nav>
+      <a href="#why">환경문제</a>
+      <a href="#action">실천하기</a>
+      <a href="#quiz">퀴즈</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<section class="hero">
+  <div class="hero-inner">
+    <div>
+      <div class="badge">🌿 환경 보호 실천 프로젝트</div>
+      <h1>지구를 위한<br><em>작은 코드</em></h1>
+      <p>환경을 지키는 일은 거창하지 않습니다.<br>
+      오늘 할 수 있는 작은 실천 하나부터 시작해 봐요.</p>
+      <a class="btn" href="#action">오늘의 실천 시작하기 →</a>
+    </div>
+    <div class="earth-card">
+      <div class="earth">🌍</div>
+      <div class="mini">우리의 선택이 모이면<br><strong>더 깨끗한 지구</strong>가 됩니다.</div>
+    </div>
+  </div>
+</section>
+
+<section id="why">
+  <div class="container">
+    <div class="section-head">
+      <div class="kicker">Why it matters</div>
+      <h2>우리가 환경을 지켜야 하는 이유</h2>
+      <p>환경 문제는 멀리 있는 이야기가 아니라 우리의 일상과 연결되어 있습니다.</p>
+    </div>
+    <div class="cards">
+      <div class="card"><div class="icon">🌡️</div><h3>기후변화</h3><p>온실가스가 증가하면 지구의 평균 기온이 상승하고 기후에 다양한 변화가 나타날 수 있습니다.</p></div>
+      <div class="card"><div class="icon">🧴</div><h3>플라스틱 쓰레기</h3><p>한 번 사용하고 버리는 플라스틱을 줄이고 올바르게 분리배출하는 노력이 필요합니다.</p></div>
+      <div class="card"><div class="icon">💡</div><h3>에너지 절약</h3><p>사용하지 않는 전기와 에너지를 줄이는 것만으로도 일상에서 환경 보호에 참여할 수 있습니다.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="action" id="action">
+  <div class="container">
+    <div class="section-head">
+      <div class="kicker" style="color:#188653">Take action</div>
+      <h2 style="color:#111">오늘 내가 실천한 것</h2>
+      <p style="color:#333">체크하면서 나만의 환경 실천 점수를 만들어 보세요!</p>
+    </div>
+    <div class="check-wrap">
+      <div class="checklist">
+        <div class="check"><input type="checkbox" id="c1"><label for="c1">텀블러나 다회용 컵을 사용했다 ☕</label></div>
+        <div class="check"><input type="checkbox" id="c2"><label for="c2">사용하지 않는 전등을 껐다 💡</label></div>
+        <div class="check"><input type="checkbox" id="c3"><label for="c3">일회용품 사용을 줄였다 🥤</label></div>
+        <div class="check"><input type="checkbox" id="c4"><label for="c4">걷기나 대중교통을 이용했다 🚶</label></div>
+        <div class="check"><input type="checkbox" id="c5"><label for="c5">쓰레기를 올바르게 분리배출했다 ♻️</label></div>
+      </div>
+      <div class="score">
+        <div>오늘의 실천 점수</div>
+        <div class="score-number" id="score">0</div>
+        <small>5개 중 <span id="count">0</span>개 실천</small>
+        <div class="progress"><div id="bar"></div></div>
+        <p id="message" style="margin-top:18px;font-size:14px">하나씩 시작해 볼까요? 🌱</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="quiz">
+  <div class="container">
+    <div class="section-head">
+      <div class="kicker">Eco quiz</div>
+      <h2>환경 상식 퀴즈</h2>
+      <p>퀴즈를 풀면서 환경 보호에 대해 알아봅시다.</p>
+    </div>
+    <div class="quiz">
+      <div class="quiz-card">
+        <h3>Q1. 다음 중 일회용품 사용을 줄이는 방법은?</h3>
+        <button class="option" data-answer="wrong">매번 새 비닐봉지를 사용한다</button>
+        <button class="option" data-answer="correct">장바구니를 사용한다</button>
+        <button class="option" data-answer="wrong">일회용 컵을 여러 개 준비한다</button>
+        <div class="result"></div>
+      </div>
+      <div class="quiz-card">
+        <h3>Q2. 사용하지 않는 전등은 어떻게 하는 것이 좋을까요?</h3>
+        <button class="option" data-answer="correct">전등을 끈다</button>
+        <button class="option" data-answer="wrong">계속 켜 둔다</button>
+        <button class="option" data-answer="wrong">더 밝은 전등으로 바꾼다</button>
+        <div class="result"></div>
+      </div>
+      <div class="quiz-card">
+        <h3>Q3. 재활용을 위해 가장 먼저 할 일은?</h3>
+        <button class="option" data-answer="wrong">모든 쓰레기를 한 봉투에 넣는다</button>
+        <button class="option" data-answer="correct">재활용품을 종류에 맞게 분리한다</button>
+        <button class="option" data-answer="wrong">재활용품을 태운다</button>
+        <div class="result"></div>
+      </div>
+      <div class="quiz-card">
+        <h3>Q4. 가까운 거리를 이동할 때 환경 부담을 줄이는 방법은?</h3>
+        <button class="option" data-answer="correct">걷거나 자전거를 이용한다</button>
+        <button class="option" data-answer="wrong">항상 자동차를 이용한다</button>
+        <button class="option" data-answer="wrong">불필요하게 이동한다</button>
+        <div class="result"></div>
+      </div>
+    </div>
+
+    <div class="cta">
+      <div class="kicker">One small action</div>
+      <h2>작은 실천이 모이면<br>큰 변화가 됩니다. 🌱</h2>
+      <p style="margin-top:12px;color:#587468">오늘 한 가지라도 실천했다면 이미 시작한 것입니다.</p>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  GREEN CODE · 환경 보호 실천 웹사이트 · Coding Club Project
+</footer>
+
+<script>
+const checks = document.querySelectorAll('.check input');
+const score = document.getElementById('score');
+const count = document.getElementById('count');
+const bar = document.getElementById('bar');
+const message = document.getElementById('message');
+
+function updateScore(){
+  const done = [...checks].filter(x => x.checked).length;
+  count.textContent = done;
+  score.textContent = done * 20;
+  bar.style.width = (done * 20) + '%';
+  const messages = [
+    "하나씩 시작해 볼까요? 🌱",
+    "좋은 시작이에요! 🌿",
+    "환경을 위한 실천이 쌓이고 있어요! 🍀",
+    "멋져요! 지구가 고마워할 거예요! 🌍",
+    "거의 다 왔어요! ♻️",
+    "완벽해요! 오늘의 GREEN HERO! 🌎✨"
+  ];
+  message.textContent = messages[done];
+}
+checks.forEach(x => x.addEventListener('change', updateScore));
+
+document.querySelectorAll('.option').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const card = btn.closest('.quiz-card');
+    const result = card.querySelector('.result');
+    card.querySelectorAll('.option').forEach(b => b.disabled = true);
+    if(btn.dataset.answer === 'correct'){
+      btn.classList.add('correct');
+      result.textContent = '정답이에요! 🌱';
+      result.style.color = '#188653';
+    }else{
+      btn.classList.add('wrong');
+      result.textContent = '아쉬워요! 다른 환경 실천도 알아보세요.';
+      result.style.color = '#a24940';
+      card.querySelector('[data-answer="correct"]').classList.add('correct');
+    }
+  });
+});
+</script>
+</body>
+</html>
